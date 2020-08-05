@@ -29,6 +29,13 @@ class Page extends React.Component{
         }))
     }
 
+    async removeWordFromLibrary(index) {
+        await this.setState(prevState => ({
+            library: prevState.library.filter((word, i) => i !== index)
+        }))
+        await localStorage.setItem('Library', JSON.stringify(this.state.library))
+    }
+
     async addWordToLibrary() {
         try {
             const response = await fetch(`https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate?source=ru&target=en&input=${this.state.value}`, {
@@ -47,11 +54,14 @@ class Page extends React.Component{
             }
 
             await this.setState(prevState => ({
-                library: [...prevState.library, {id: this.state.value.length, word: this.state.value, translation: this.state.translation}]
+                library: [...prevState.library, {id: this.state.library.length, word: this.state.value, translation: this.state.translation}]
             }))
     
             await localStorage.setItem('Library', JSON.stringify(this.state.library))
-            console.log(result.outputs[0].output)
+            await this.changeMode()
+            await this.setState(()=> ({
+                translation: ''
+            }))
         }
         
             catch (error) {
@@ -79,7 +89,7 @@ class Page extends React.Component{
                             <button onClick={this.addWordToLibrary} className = "btn-check"> ✓</button>
                         </div>
                     }
-                    <button onClick ={this.changeMode} className = "btn-add"></button>
+                    <button onClick ={this.changeMode} className = {this.state.isOpen ? 'btn-add': 'btn-close'}></button>
                 </div>
                 <div className='library-container'>
                     <div className="library-header">
@@ -87,8 +97,8 @@ class Page extends React.Component{
                         <div>Translation</div>
                         <div>Learn Level</div>
                     </div>
-                    {this.state.library.map(word => (
-                        <div>
+                    {this.state.library.map((word, index) => (
+                        <div key={index}> 
                             <div>
                                 {word.id}
                             </div>
@@ -98,6 +108,7 @@ class Page extends React.Component{
                             <div>
                                 {word.translation}
                             </div>
+                            <div onClick={() => this.removeWordFromLibrary(index)}>Delete</div>
                         </div>
                     ))}
                    
