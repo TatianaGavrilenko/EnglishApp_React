@@ -195,6 +195,7 @@ a.active{
   right: 50px;
   color: darkgreen;
   top: 20px;
+  position: fixed;
 }
 
 .page-container{

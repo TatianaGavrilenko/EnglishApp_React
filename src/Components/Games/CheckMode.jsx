@@ -8,6 +8,7 @@ export default (props) =>{
                 props.setCorrectAnswer(props.correctAnswer + 1)
                 props.setScore(props.score + 1)
                 setCurrentWordIndex(currentWordIndex + 1)
+                props.CheckLevel()
             } else {
                 props.setWrongAnswer(props.wrongAnswer + 1)
             }
@@ -19,7 +20,7 @@ export default (props) =>{
         }
     }
     const [currentWordIndex, setCurrentWordIndex] = useState(0)
-    const [library, setLibrary] = useState(JSON.parse(localStorage.getItem('Library')))
+    const [library, setLibrary] = useState(JSON.parse(localStorage.getItem('Library')) || {id: 0, word: '', translation: ''}, {id: 0, word: '', translation: ''}, {id: 0, word: '', translation: ''}) 
     const [checkArr, setCheckArr] = useState([])
     const currentWord = library[currentWordIndex].translation
     const [initialScore, setInitialScore] = useState(props.score)
@@ -31,11 +32,14 @@ export default (props) =>{
         setCheckArr(checkArr.sort(() => Math.random() - 0.5))
     }, [props.correctAnswer])
     useEffect(() => {
-        return () => {
-            props.setScore(initialScore)
-        }
-        
+        //return () => {
+            //props.setScore(initialScore)
+       // }
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('score', props.score)
+    }, [props.score])
 
     return (
         <div className='mode-wrapper'>
