@@ -31,7 +31,14 @@ const Game = (props) => {
                     CheckLevel={props.CheckLevel}
                 /> :
                 location.pathname === '/training/write-mode' ?
-            <WriteMode /> : null}
+            <WriteMode
+                setScore={props.setScore}
+                score={props.score}
+                correctAnswer={correctAnswer}
+                wrongAnswer={wrongAnswer}
+                setCorrectAnswer={setCorrectAnswer}
+                setWrongAnswer={setWrongAnswer}
+            /> : null}
         </div>
     )
 }

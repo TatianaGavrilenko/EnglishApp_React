@@ -7,6 +7,7 @@ import Library from "./Components/Page";
 import Training from "./Components/Training";
 import Learn from "./Components/Learn";
 import Game from "./Components/Games/Game";
+//import {Context} from './context'
 
 const App = () => {
   const checkLevel = () =>{

@@ -55,7 +55,7 @@ class Page extends React.Component{
             }
 
             await this.setState(prevState => ({
-                library: [...prevState.library, {id: this.state.library.length, word: this.state.value, translation: this.state.translation}]
+                library: [...prevState.library, {id: this.state.library.length, word: this.state.value, translation: this.state.translation, correct: 0, learn: 0, error: 0}]
             }))
     
             await localStorage.setItem('Library', JSON.stringify(this.state.library))

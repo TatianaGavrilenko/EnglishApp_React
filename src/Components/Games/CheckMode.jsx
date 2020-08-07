@@ -1,6 +1,6 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
-
+import { useEffect, useState} from 'react'
+ 
 export default (props) =>{
     const checkWord = (word) =>{
         if(library.length -1 !== currentWordIndex) {
@@ -9,8 +9,12 @@ export default (props) =>{
                 props.setScore(props.score + 1)
                 setCurrentWordIndex(currentWordIndex + 1)
                 props.CheckLevel()
+                library[currentWordIndex].correct = library[currentWordIndex].correct +1
+                localStorage.setItem('Library', JSON.stringify(library))
             } else {
                 props.setWrongAnswer(props.wrongAnswer + 1)
+                library[currentWordIndex].error = library[currentWordIndex].error +1
+                localStorage.setItem('Library', JSON.stringify(library))
             }
         } else{
             alert ('Game over!')
