@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 export default (props) =>{
     const modeClassName = 'mode-container' + props.modeClassName
+    
     return(
         <NavLink to={`/training/${props.path}`}>
         <div className={modeClassName}>

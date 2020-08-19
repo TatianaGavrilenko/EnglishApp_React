@@ -8,6 +8,7 @@ const Game = (props) => {
     const location = useLocation()
     const [correctAnswer, setCorrectAnswer] = useState(0)
     const [wrongAnswer, setWrongAnswer] = useState(0)
+
     return (
         <div className='game-page'>
             <NavLink to='/training'>
@@ -31,6 +32,7 @@ const Game = (props) => {
                     CheckLevel={props.CheckLevel}
                 /> :
                 location.pathname === '/training/write-mode' ?
+                
             <WriteMode
                 setScore={props.setScore}
                 score={props.score}
